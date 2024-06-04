@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 class Program
 {
     static string? _text = string.Empty;
@@ -67,6 +68,28 @@ class Program
             Console.WriteLine($"Символ {c} - {k} раз");
         }
     }
+    static void OutputRepetitionVowelSubstring(string? text)
+    {
+        bool isvowelsubstring = false;
+        bool isstart = false;
+        int startsubstring = 0;
+        int endsubstring = 0;
+        for (int i = 0; i < text.Length; i++)
+        {
+            char c = text[i];
+            if (Regex.IsMatch(c.ToString(), @"[a,e,i,o,u,y]"))
+            {
+                isvowelsubstring = !isvowelsubstring;
+            }
+            if (isvowelsubstring)
+            {
+                if (i == 0) isstart = true;
+                if (startsubstring == 0 && !isstart) startsubstring = i;
+                else endsubstring = i - startsubstring + 2;
+            }
+        }
+        Console.WriteLine("Наибольшая подстрока, которая начинается и заканчивается на гласную букву: " + text.Substring(startsubstring,endsubstring));
+    }
     static void SplitandReverseString()
     {
         if (IsEvenString(_text))
@@ -76,6 +99,7 @@ class Program
             string? reversetext = ReverseString(firsttext) + ReverseString(secondtext);
             Console.WriteLine("Измененная строка: " + reversetext);
             OutputRepetitionSymbol(reversetext);
+            OutputRepetitionVowelSubstring(reversetext);
         }
         else
         {
@@ -83,6 +107,7 @@ class Program
             Console.WriteLine("Измененная строка: " + reversetext);
             ReverseString(ReverseString(_text));
             OutputRepetitionSymbol(reversetext);
+            OutputRepetitionVowelSubstring(reversetext);
         }
     }
     static void OutputReverseString()
