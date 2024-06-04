@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 class Program
 {
     static string? _text = string.Empty;
-    static char[] _errorchar;
+    static char[] _errorchar = new char[0];
     static bool IsValidString(string? text)
     {
         if (string.IsNullOrWhiteSpace(text)) return false;
@@ -43,8 +44,27 @@ class Program
         {
             if (_errorchar[i] != 0)
             {
-                Console.WriteLine("Символ " + i + ": " + _errorchar[i]);
+                Console.WriteLine($"Символ {i}: {_errorchar[i]}");
             }
+        }
+    }
+    static void OutputRepetitionSymbol(string? text)
+    {
+        StringBuilder temptext = new StringBuilder(text);
+        for (int i = 0; i < temptext.Length; i++)
+        {
+            char c = temptext[i];
+            int k = 1;
+            for (int j = i + 1; j < temptext.Length; j++) 
+            {
+                if (c == temptext[j]) 
+                {
+                    k++;
+                    temptext.Remove(j, 1);
+                    j--;
+                }
+            }
+            Console.WriteLine($"Символ {c} - {k} раз");
         }
     }
     static void SplitandReverseString()
@@ -53,10 +73,17 @@ class Program
         {
             string? firsttext = _text.Substring(0, _text.Length - _text.Length / 2);
             string? secondtext = _text.Substring(_text.Length - _text.Length / 2);
-
-            Console.WriteLine("Измененная строка: " + ReverseString(firsttext) + ReverseString(secondtext));
+            string? reversetext = ReverseString(firsttext) + ReverseString(secondtext);
+            Console.WriteLine("Измененная строка: " + reversetext);
+            OutputRepetitionSymbol(reversetext);
         }
-        else Console.WriteLine("Измененная строка: " + ReverseString(_text) + _text);
+        else
+        {
+            string? reversetext = ReverseString(_text) + _text;
+            Console.WriteLine("Измененная строка: " + reversetext);
+            ReverseString(ReverseString(_text));
+            OutputRepetitionSymbol(reversetext);
+        }
     }
     static void OutputReverseString()
     {
