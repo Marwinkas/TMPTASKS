@@ -48,6 +48,7 @@ namespace TMPTASKS
                 RepetitionString.OutputSymbol(text);
                 RepetitionString.OutputVowelSubstring(text);
                 Sort.OutputSortString();
+                GetRandomValue.Get(text, 0, text.Length - 1);
             }
         }
     }
