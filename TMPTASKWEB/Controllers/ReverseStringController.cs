@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TMPTASKWEB.Function;
 using TMPTASKWEB.Models;
-
+using Microsoft.Extensions.Configuration;
 namespace TMPTASKWEB.Controllers
 {
     [ApiController]
@@ -9,18 +9,25 @@ namespace TMPTASKWEB.Controllers
     public class ReverseStringController : ControllerBase
     {
         ReverseStringModel forecast;
+        private readonly IConfiguration _config;
+
+        public ReverseStringController(IConfiguration config)
+        {
+            _config = config;
+        }
         [HttpGet]
+
         public IActionResult Get(string text, int sort)
         {
-
-            if (!StringManager.IsValid(text)) return BadRequest(StringManager.ErrorMessage());
+            string[] blacklist = _config.GetSection("Settings:BlackList").Get<string[]>();
+            if (!StringManager.IsValid(text, blacklist)) return BadRequest(StringManager.ErrorMessage());
+            else if(StringManager.isblackword) return BadRequest(StringManager.BlackWordMessage()); 
             else
             {
                 StringManager._text = text;
                 string sorted = "";
                 if (sort == 0) sorted = QuickSort.Output();
                 else if (sort == 1) sorted = TreeSort.Output();
-
                 forecast = new ReverseStringModel()
                 {
                     Text = text,
@@ -28,7 +35,7 @@ namespace TMPTASKWEB.Controllers
                     OutputSymbol = RepetitionString.OutputSymbol(),
                     OutputVowelSubstring = RepetitionString.OutputVowelSubstring(),
                     Sort = sorted,
-                    RemoveStroke = RemoveRandomSymbol.Get()
+                    RemoveStroke = RemoveRandomSymbol.Get(_config.GetSection("RandomApi").Get<string>())
                 };
                 return Ok(forecast);
             }

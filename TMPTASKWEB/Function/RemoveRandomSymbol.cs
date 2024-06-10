@@ -8,12 +8,12 @@ namespace TMPTASKWEB.Function
 {
     public class RemoveRandomSymbol
     {
-        public static string[] Get()
+        public static string[] Get(string url)
         {
             string? text = ReverseString.Get(StringManager._text);
             int max = text.Length;
             var client = new HttpClient();
-            client.BaseAddress = new Uri($"http://www.randomnumberapi.com/api/v1.0/random?min=0&max={max}");
+            client.BaseAddress = new Uri(url + $"?min=0&max={max}");
             int random = 0;
             try
             {
