@@ -67,8 +67,7 @@ namespace TMPTASKWEB.Controllers
                         }
                         else { count = null; HttpContext.Session.SetInt32(REQUEST_COUNTER, 0); }
 
-                        }
-                    
+                        } 
                 }
                 else return StatusCode(StatusCodes.Status503ServiceUnavailable, "ServiceUnavailable");
             }

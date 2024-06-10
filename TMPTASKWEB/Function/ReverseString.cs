@@ -2,12 +2,12 @@
 {
     public class ReverseString
     {
-        static bool IsEvenString(string? text)
+        public static bool IsEvenString(string? text)
         {
             if (text.Length % 2 != 0) return false;
             else return true;
         }
-        static string Reverse(string? text)
+        public static string Reverse(string? text)
         {
             char[] array = text.ToCharArray();
             Array.Reverse(array);

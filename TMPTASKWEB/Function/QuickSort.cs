@@ -2,16 +2,16 @@
 {
     public class QuickSort
     {
-        static void Swap(ref char x, ref char y)
+        public static void Swap(ref char x, ref char y)
         {
             char t = x;
             x = y;
             y = t;
         }
-        static int Partition(char[] array, int minIndex, int maxIndex)
+        public static int Partition(char[] array, int minIndex, int maxIndex)
         {
-            var pivot = minIndex - 1;
-            for (var i = minIndex; i < maxIndex; i++)
+            int pivot = minIndex - 1;
+            for (int i = minIndex; i < maxIndex; i++)
             {
                 if (array[i] < array[maxIndex])
                 {
@@ -21,9 +21,10 @@
             }
             pivot++;
             Swap(ref array[pivot], ref array[maxIndex]);
+            Console.Write(pivot);
             return pivot;
         }
-        static char[] Sort(char[] array, int minIndex, int maxIndex)
+        public static char[] Sort(char[] array, int minIndex, int maxIndex)
         {
             if (minIndex >= maxIndex)
             {
@@ -39,8 +40,8 @@
         public static string Output()
         {
             char[] array = ReverseString.Get(StringManager._text).ToCharArray();
-            Sort(array, 0, array.Length - 1);
-            return "Быстрая Сортировка: " + new string(array);
+            
+            return "Быстрая Сортировка: " + new string(Sort(array, 0, array.Length - 1));
         }
     }
 }

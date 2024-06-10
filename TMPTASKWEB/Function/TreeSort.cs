@@ -58,7 +58,7 @@
 
             return elements.ToArray();
         }
-        static char[] Sort(char[] array)
+        public static char[] Sort(char[] array)
         {
             var treeNode = new TreeSort(array[0]);
             for (int i = 1; i < array.Length; i++)
