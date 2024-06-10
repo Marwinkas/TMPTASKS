@@ -12,7 +12,7 @@ namespace TMPTASKWEB.Function
         {
             string? text = ReverseString.Get(StringManager._text);
             int max = text.Length;
-            var client = new HttpClient();
+            HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(url + $"?min=0&max={max}");
             int random = 0;
             try

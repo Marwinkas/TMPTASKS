@@ -70,6 +70,7 @@ namespace TMPTASKWEB.Function
                     else endsubstring = i - startsubstring + 2;
                 }
             }
+            if (endsubstring + startsubstring > text.Length) endsubstring = text.Length - startsubstring - 1;
             return text.Substring(startsubstring, endsubstring);
         }
         public static string OutputVowelSubstring(string text)
@@ -92,6 +93,7 @@ namespace TMPTASKWEB.Function
                     else endsubstring = i - startsubstring + 2;
                 }
             }
+            if(endsubstring + startsubstring > text.Length) endsubstring = text.Length - startsubstring - 1;
             return text.Substring(startsubstring, endsubstring);
         }
     }
